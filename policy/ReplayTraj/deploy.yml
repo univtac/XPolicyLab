@@ -1,0 +1,20 @@
+policy_name: ReplayTraj
+protocol: ws
+host: 127.0.0.1
+port: 19000
+bench_name: UniVTAC
+task_name: grasp_classify
+env_cfg_type: univtac_franka
+action_type: joint
+seed: 0
+eval_batch: false
+trajectory_path: null
+# Raw UniVTAC joint recordings are captured at 2x the qpos control rate;
+# this matches scripts/replay.py.  Explicit action datasets are not strided.
+trajectory_start: 0
+# Omit the stride so ReplayTraj reads replay_stride from the HDF5 contract.
+trajectory_stride: null
+# ReplayTraj is used with UniVTAC's replay_reset path, which already starts
+# from the recorded row 0.  Nearest-state alignment is ambiguous over the
+# stationary reset prefix and can skip several actions.
+trajectory_auto_align: false
